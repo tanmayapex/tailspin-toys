@@ -7,10 +7,14 @@ interface Props {
 const { title, subtitle } = Astro.props;
 ---
 
-<div class="max-w-3xl mb-10" data-testid="page-hero">
-    <h1 class="text-4xl font-bold mb-4 text-slate-100" data-testid="page-hero-title">{title}</h1>
-    {subtitle && (
-        <p class="text-xl text-slate-300" data-testid="page-hero-subtitle">{subtitle}</p>
-    )}
+<div class="relative mb-14 max-w-4xl overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-blue-500/15 via-slate-900/80 to-purple-500/10 px-6 py-10 shadow-2xl shadow-blue-950/20 sm:px-10 sm:py-14" data-testid="page-hero">
+    <div class="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-blue-400/10 blur-3xl"></div>
+    <div class="relative">
+        <p class="mb-5 text-xs font-medium uppercase tracking-[0.28em] text-blue-300">The developer's game shelf</p>
+        <h1 class="mb-5 max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-6xl" data-testid="page-hero-title">{title}</h1>
+        {subtitle && (
+            <p class="max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl" data-testid="page-hero-subtitle">{subtitle}</p>
+        )}
+    </div>
     <slot />
 </div>
