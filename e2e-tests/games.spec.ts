@@ -24,6 +24,33 @@ test.describe('Game Listing and Navigation', () => {
     });
   });
 
+  test('should filter games by category, publisher, and their combination', async ({ page }) => {
+    await page.goto('/');
+    const filters = page.getByTestId('game-filters');
+    const cards = page.getByTestId('game-card');
+    const initialCount = await cards.count();
+    await filters.getByTestId('category-filter-menu').getByText('Browse by category').click();
+    const category = filters.locator('input[name="category"]').first();
+    const publisher = filters.getByTestId('publisher-filter');
+
+    await category.check();
+    await expect(page.getByTestId('results-count')).not.toHaveText(String(initialCount));
+    await expect(page).toHaveURL(/category=/);
+
+    await publisher.selectOption({ index: 1 });
+    await expect(page).toHaveURL(/category=.*publisher=/);
+    await expect(page.getByTestId('results-count')).toHaveText(/^\d+$/);
+
+    const selectedPublisher = await publisher.inputValue();
+    await page.reload();
+    await expect(category).toBeChecked();
+    await expect(publisher).toHaveValue(selectedPublisher);
+
+    await filters.getByTestId('clear-filters').click();
+    await expect(page).toHaveURL('/');
+    await expect(page.getByTestId('results-count')).toHaveText(String(initialCount));
+  });
+
   test('should navigate to correct game details page when clicking on a game', async ({ page }) => {
     let gameId: string | null;
     let gameTitle: string | null;
