@@ -42,6 +42,8 @@ npm run build      # prebuild migrates + seeds, then builds the static site
 npm run preview
 ```
 
+The shared header includes a high-contrast mode toggle for improved readability. The preference is saved in the browser and restored on subsequent page loads.
+
 ## Database
 
 The SQLite database is built from `db/games.csv` — there is no live data to migrate.
