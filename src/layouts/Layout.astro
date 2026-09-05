@@ -14,6 +14,10 @@ const { title = "Tailspin Toys" } = Astro.props;
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
+        <script is:inline>
+            const highContrastPreference = localStorage.getItem('tailspin-toys-high-contrast') === 'true';
+            document.documentElement.classList.toggle('high-contrast', highContrastPreference);
+        </script>
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
@@ -45,5 +49,46 @@ const { title = "Tailspin Toys" } = Astro.props;
     body {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+    }
+
+    html.high-contrast body {
+        background-color: #000 !important;
+        color: #fff !important;
+    }
+
+    html.high-contrast header {
+        background-color: #000 !important;
+        border-bottom: 2px solid #fff;
+    }
+
+    html.high-contrast .bg-slate-800\/60,
+    html.high-contrast .bg-slate-800\/70,
+    html.high-contrast nav {
+        background-color: #000 !important;
+        border-color: #fff !important;
+    }
+
+    html.high-contrast .text-slate-100,
+    html.high-contrast .text-slate-200,
+    html.high-contrast .text-slate-300,
+    html.high-contrast .text-slate-400 {
+        color: #fff !important;
+    }
+
+    html.high-contrast .text-blue-400,
+    html.high-contrast .text-purple-400,
+    html.high-contrast .text-yellow-400 {
+        color: #7dd3fc !important;
+    }
+
+    html.high-contrast .bg-blue-600,
+    html.high-contrast .bg-gradient-to-r {
+        background: #fff !important;
+        color: #000 !important;
+    }
+
+    html.high-contrast a,
+    html.high-contrast button {
+        text-decoration-thickness: 2px;
     }
 </style>
